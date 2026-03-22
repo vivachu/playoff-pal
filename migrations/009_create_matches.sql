@@ -1,0 +1,22 @@
+CREATE TABLE IF NOT EXISTS matches (
+  id                   INT          NOT NULL AUTO_INCREMENT,
+  tournament_id        INT          NOT NULL,
+  round_number         INT          NOT NULL,
+  match_number         INT          NOT NULL,
+  home_team_id         INT,
+  away_team_id         INT,
+  winner_team_id       INT,
+  status               ENUM('scheduled','active','completed','disputed') NOT NULL DEFAULT 'scheduled',
+  is_bye               TINYINT(1)   NOT NULL DEFAULT 0,
+  location             VARCHAR(255),
+  scheduled_start      DATETIME,
+  score_report_deadline DATETIME,
+  referee_override     TINYINT(1)   NOT NULL DEFAULT 0,
+  created_at           DATETIME     NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  updated_at           DATETIME     NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (id),
+  CONSTRAINT fk_matches_tournament  FOREIGN KEY (tournament_id)  REFERENCES tournaments (id),
+  CONSTRAINT fk_matches_home_team   FOREIGN KEY (home_team_id)   REFERENCES teams       (id),
+  CONSTRAINT fk_matches_away_team   FOREIGN KEY (away_team_id)   REFERENCES teams       (id),
+  CONSTRAINT fk_matches_winner_team FOREIGN KEY (winner_team_id) REFERENCES teams       (id)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;

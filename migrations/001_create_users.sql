@@ -1,0 +1,10 @@
+CREATE TABLE IF NOT EXISTS users (
+  id           INT          NOT NULL AUTO_INCREMENT,
+  phone_number VARCHAR(20)  NOT NULL,
+  first_name   VARCHAR(50)  NOT NULL,
+  last_name    VARCHAR(50)  NOT NULL,
+  created_at   DATETIME     NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  updated_at   DATETIME     NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (id),
+  UNIQUE KEY uq_users_phone (phone_number)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;

@@ -1,0 +1,8 @@
+CREATE TABLE IF NOT EXISTS mascots (
+  id        INT          NOT NULL AUTO_INCREMENT,
+  name      VARCHAR(100) NOT NULL,
+  slug      VARCHAR(100) NOT NULL,
+  icon_path VARCHAR(255) NOT NULL,
+  PRIMARY KEY (id),
+  UNIQUE KEY uq_mascots_slug (slug)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;

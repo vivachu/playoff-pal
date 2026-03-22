@@ -1,0 +1,23 @@
+CREATE TABLE IF NOT EXISTS tournaments (
+  id                INT          NOT NULL AUTO_INCREMENT,
+  share_code        VARCHAR(10)  NOT NULL,
+  creator_user_id   INT          NOT NULL,
+  title             VARCHAR(100) NOT NULL,
+  description       VARCHAR(300),
+  theme_id          INT          NOT NULL,
+  game_rules        TEXT,
+  status            ENUM('draft','signup','gameplay','ended') NOT NULL DEFAULT 'draft',
+  prize_type_id     INT,
+  prize_description TEXT,
+  location          VARCHAR(255),
+  start_datetime    DATETIME,
+  timezone          VARCHAR(50),
+  num_teams         INT          NOT NULL,
+  created_at        DATETIME     NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  updated_at        DATETIME     NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (id),
+  UNIQUE KEY uq_tournaments_share_code (share_code),
+  CONSTRAINT fk_tournaments_creator  FOREIGN KEY (creator_user_id) REFERENCES users          (id),
+  CONSTRAINT fk_tournaments_theme    FOREIGN KEY (theme_id)        REFERENCES tournament_themes (id),
+  CONSTRAINT fk_tournaments_prize    FOREIGN KEY (prize_type_id)   REFERENCES prize_types     (id)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
