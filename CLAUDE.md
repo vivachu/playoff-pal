@@ -1,6 +1,25 @@
-# Playoff Pal — CLAUDE.md
-# AI Developer Context & Project Reference
+# CLAUDE.md
+
+This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+
+# Playoff Pal — AI Developer Context & Project Reference
 # Based on Functional Spec v3 (MVP) — Fully resolved; no open blockers; ready to build
+
+---
+
+## Project Status (as of initial checkin)
+
+**Implementation has not started.** The repository currently contains only:
+- `public/images/` — All static image assets (mascots, pp-mascot variants, etc.)
+- `package.json` — No dependencies installed yet; no npm scripts defined yet
+
+**Everything in the spec below needs to be built from scratch.** Start by:
+1. Adding all dependencies to `package.json` and running `npm install`
+2. Creating the `src/`, `migrations/`, `seeds/`, `scripts/`, and `docs/` directories
+3. Setting up `src/index.js` as the Express entry point
+4. Running migrations against a local MySQL 8 database
+
+The npm scripts (`dev`, `start`, `migrate`, `seed:*`, `lint`) are defined in the spec but not yet in `package.json` — add them when scaffolding.
 
 ---
 
