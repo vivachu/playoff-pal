@@ -1,13 +1,9 @@
 import { fileURLToPath } from 'url';
 import { dirname, join } from 'path';
-import dotenv from 'dotenv';
+import express from 'express';
 
-// Load env before any config imports that read process.env
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
-dotenv.config({ path: join(__dirname, `../.env.${process.env.NODE_ENV || 'local'}`) });
-
-import express from 'express';
 import { engine } from 'express-handlebars';
 import session from 'express-session';
 import MySQLStoreFactory from 'express-mysql-session';

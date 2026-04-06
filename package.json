@@ -5,7 +5,7 @@
   "main": "src/index.js",
   "type": "module",
   "scripts": {
-    "dev": "nodemon src/index.js",
+    "dev": "nodemon --env-file .env.local src/index.js",
     "start": "node src/index.js",
     "migrate": "node scripts/migrate.js",
     "migrate:rollback": "node scripts/migrate.js --rollback",
