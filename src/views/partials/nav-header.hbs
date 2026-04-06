@@ -1,0 +1,16 @@
+<header class="nav-header">
+  <a href="/" class="nav-logo">
+    <img src="/images/logo/playoff-pal-logo.png" alt="Playoff Pal" class="nav-logo-img" />
+  </a>
+  <div class="nav-avatar-wrap">
+    <button class="nav-avatar-btn" id="avatarBtn" aria-label="Account menu">
+      <img src="{{avatarUrl}}" alt="{{user.first_name}} {{user.last_name}}" class="nav-avatar" />
+    </button>
+    <div class="nav-popup" id="avatarPopup" hidden>
+      <a href="/account/edit" class="nav-popup-item">Edit Account</a>
+      <form action="/auth/logout" method="POST">
+        <button type="submit" class="nav-popup-item nav-popup-signout">Sign Out</button>
+      </form>
+    </div>
+  </div>
+</header>

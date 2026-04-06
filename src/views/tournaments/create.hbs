@@ -1,0 +1,89 @@
+<div class="page-container create-wizard">
+  <h1 class="page-title">Create Tournament</h1>
+
+  {{> mascot-anim variant="idle" id="wizardMascot"}}
+
+  <!-- Step 1: Name -->
+  <div class="wizard-step" id="step1">
+    <h2 class="wizard-step__title">Name Your Tournament</h2>
+    <label class="form-label" for="tournamentName">Tournament Name</label>
+    <input class="form-input" type="text" id="tournamentName" maxlength="100"
+      placeholder="e.g. Summer Hoops 2026" />
+    <p class="form-hint" id="nameCharCount">0 / 100</p>
+    <button class="btn btn--blue btn--full" id="generateBtn">Continue →</button>
+  </div>
+
+  <!-- Step 2: Theme + Description -->
+  <div class="wizard-step" id="step2" hidden>
+    <h2 class="wizard-step__title">Review Theme & Rules</h2>
+    <label class="form-label" for="themeSelect">Theme</label>
+    <select class="form-input" id="themeSelect">
+      {{#each themes}}
+        <option value="{{id}}" data-format="{{format}}" data-players="{{active_players_per_side}}">
+          {{category}} — {{theme_name}} ({{format}})
+        </option>
+      {{/each}}
+    </select>
+
+    <label class="form-label" for="description">Description</label>
+    <textarea class="form-input" id="description" rows="3" maxlength="300"></textarea>
+
+    <label class="form-label" for="gameRules">Game Rules</label>
+    <textarea class="form-input" id="gameRules" rows="4"></textarea>
+
+    <button class="btn btn--blue btn--full" id="step2NextBtn">Next →</button>
+  </div>
+
+  <!-- Step 3: Teams -->
+  <div class="wizard-step" id="step3" hidden>
+    <h2 class="wizard-step__title">Set Up Teams</h2>
+    <label class="form-label" for="numTeams">Number of Teams</label>
+    <select class="form-input" id="numTeams">
+      <option value="2">2 Teams</option>
+      <option value="4" selected>4 Teams</option>
+      <option value="8">8 Teams</option>
+      <option value="16">16 Teams</option>
+    </select>
+    <button class="btn btn--blue btn--full" id="createTeamsBtn">Create Teams</button>
+
+    <div id="teamsList" class="teams-list" hidden></div>
+    <button class="btn btn--gray" id="regenTeamsBtn" hidden>↺ Regenerate All</button>
+    <button class="btn btn--blue btn--full" id="step3NextBtn" hidden>Next →</button>
+  </div>
+
+  <!-- Step 4: Prize -->
+  <div class="wizard-step" id="step4" hidden>
+    <h2 class="wizard-step__title">Prize</h2>
+    <label class="form-label" for="prizeTypeId">Prize Type</label>
+    <select class="form-input" id="prizeTypeId">
+      <option value="">No prize</option>
+    </select>
+    <label class="form-label" for="prizeDescription">Prize Description (optional)</label>
+    <input class="form-input" type="text" id="prizeDescription" placeholder="e.g. $50 gift card" />
+    <button class="btn btn--blue btn--full" id="step4NextBtn">Next →</button>
+  </div>
+
+  <!-- Step 5: Location + Date -->
+  <div class="wizard-step" id="step5" hidden>
+    <h2 class="wizard-step__title">Location & Date</h2>
+    <label class="form-label" for="location">Location</label>
+    <input class="form-input" type="text" id="location" placeholder="e.g. Nick's House" />
+    <label class="form-label" for="startDatetime">Start Date & Time</label>
+    <input class="form-input" type="datetime-local" id="startDatetime" />
+    <label class="form-label" for="timezone">Timezone</label>
+    <select class="form-input" id="timezone">
+      <option value="America/New_York">Eastern</option>
+      <option value="America/Chicago">Central</option>
+      <option value="America/Denver">Mountain</option>
+      <option value="America/Los_Angeles">Pacific</option>
+      <option value="America/Anchorage">Alaska</option>
+      <option value="Pacific/Honolulu">Hawaii</option>
+    </select>
+    <button class="btn btn--gold btn--full" id="saveTournamentBtn">Save & Preview →</button>
+  </div>
+</div>
+
+<script>
+  // Pass themes JSON to client-side JS
+  window.THEMES = {{{json themes}}};
+</script>

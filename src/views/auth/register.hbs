@@ -1,0 +1,25 @@
+<div class="auth-page">
+  {{> mascot-anim variant="welcome"}}
+
+  <div class="auth-card">
+    <img src="/images/logo/playoff-pal-logo.png" alt="Playoff Pal" class="auth-logo" />
+    <h1 class="auth-title">Create Account</h1>
+    <p class="auth-sub">Welcome! Tell us your name to continue.</p>
+
+    {{#if error}}
+      <p class="alert alert--error">{{error}}</p>
+    {{/if}}
+
+    <form action="/auth/register" method="POST" class="auth-form">
+      <input type="hidden" name="phone_number" value="{{phone}}" />
+
+      <label class="form-label" for="first_name">First Name</label>
+      <input class="form-input" type="text" id="first_name" name="first_name" required autocomplete="given-name" />
+
+      <label class="form-label" for="last_name">Last Name</label>
+      <input class="form-input" type="text" id="last_name" name="last_name" required autocomplete="family-name" />
+
+      <button type="submit" class="btn btn--gold btn--full">Send Code</button>
+    </form>
+  </div>
+</div>

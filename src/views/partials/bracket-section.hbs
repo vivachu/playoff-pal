@@ -1,0 +1,55 @@
+<section class="bracket-section" id="bracket">
+  <h2 class="bracket-section__title">Bracket</h2>
+
+  <div class="bracket-rounds">
+    {{#each bracketRounds}}
+      <div class="bracket-round" id="round-{{round}}">
+        <h3 class="bracket-round__label">{{label}}</h3>
+        <div class="bracket-round__matches">
+          {{#each matches}}
+            <div class="match-card match-card--{{status}}" data-match-id="{{id}}">
+              <div class="match-card__teams">
+                <div class="match-card__team {{#if (eq ../winner_team_id home_team_id)}}match-card__team--winner{{/if}}">
+                  <span>{{#if home_team_name}}{{home_team_name}}{{else}}TBD{{/if}}</span>
+                </div>
+                <div class="match-card__vs">vs</div>
+                <div class="match-card__team {{#if (eq ../winner_team_id away_team_id)}}match-card__team--winner{{/if}}">
+                  <span>{{#if away_team_name}}{{away_team_name}}{{else}}TBD{{/if}}</span>
+                </div>
+              </div>
+
+              {{#if location}}
+                <p class="match-card__location">📍 {{location}}</p>
+              {{/if}}
+              {{#if scheduled_start}}
+                <p class="match-card__time">🗓 {{scheduled_start}}</p>
+              {{/if}}
+
+              {{#if ../canReport}}
+                <button class="btn btn--gold report-score-btn"
+                  data-match-id="{{id}}"
+                  data-home="{{home_team_name}}"
+                  data-away="{{away_team_name}}"
+                  data-home-id="{{home_team_id}}"
+                  data-away-id="{{away_team_id}}">
+                  Report Score
+                </button>
+              {{/if}}
+
+              {{#if ../isCreator}}
+                <button class="btn btn--red override-btn"
+                  data-match-id="{{id}}"
+                  data-home="{{home_team_name}}"
+                  data-away="{{away_team_name}}"
+                  data-home-id="{{home_team_id}}"
+                  data-away-id="{{away_team_id}}">
+                  Set Winner
+                </button>
+              {{/if}}
+            </div>
+          {{/each}}
+        </div>
+      </div>
+    {{/each}}
+  </div>
+</section>

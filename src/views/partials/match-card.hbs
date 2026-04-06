@@ -1,0 +1,30 @@
+<div class="match-card match-card--{{status}}" data-match-id="{{id}}">
+  <div class="match-card__round-label">{{roundLabel}}</div>
+
+  <div class="match-card__teams">
+    <div class="match-card__team match-card__team--home {{#if (eq winner_team_id home_team_id)}}match-card__team--winner{{/if}}">
+      <span class="match-card__team-name">{{home_team_name}}</span>
+      {{#if home_score}}<span class="match-card__score">{{home_score}}</span>{{/if}}
+    </div>
+    <div class="match-card__vs">vs</div>
+    <div class="match-card__team match-card__team--away {{#if (eq winner_team_id away_team_id)}}match-card__team--winner{{/if}}">
+      <span class="match-card__team-name">{{away_team_name}}</span>
+      {{#if away_score}}<span class="match-card__score">{{away_score}}</span>{{/if}}
+    </div>
+  </div>
+
+  {{#if location}}
+    <p class="match-card__location">📍 {{location}}</p>
+  {{/if}}
+  {{#if scheduled_start}}
+    <p class="match-card__time">🗓 {{formatDate scheduled_start}}</p>
+  {{/if}}
+
+  {{#if canReport}}
+    <button class="btn btn--gold report-score-btn" data-match-id="{{id}}"
+      data-home="{{home_team_name}}" data-away="{{away_team_name}}"
+      data-home-id="{{home_team_id}}" data-away-id="{{away_team_id}}">
+      Report Score
+    </button>
+  {{/if}}
+</div>

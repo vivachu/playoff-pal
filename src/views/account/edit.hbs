@@ -1,0 +1,37 @@
+<div class="page-container">
+  <h1 class="page-title">Edit Account</h1>
+
+  {{#if error}}
+    <p class="alert alert--error">{{error}}</p>
+  {{/if}}
+
+  <form action="/account/edit" method="POST" class="form-card">
+    <label class="form-label" for="first_name">First Name</label>
+    <input class="form-input" type="text" id="first_name" name="first_name"
+      value="{{user.first_name}}" required />
+
+    <label class="form-label" for="last_name">Last Name</label>
+    <input class="form-input" type="text" id="last_name" name="last_name"
+      value="{{user.last_name}}" required />
+
+    <label class="form-label" for="phone_display">Phone Number</label>
+    <input class="form-input" type="tel" id="phone_display"
+      value="{{user.phone_number}}" disabled />
+    <p class="form-hint">To change your phone number, contact support.</p>
+
+    <div class="form-toggle-row">
+      <label class="form-label" for="sms_enabled">SMS Notifications</label>
+      <label class="toggle">
+        <input type="checkbox" id="sms_enabled" name="sms_enabled"
+          {{#if smsEnabled}}checked{{/if}} />
+        <span class="toggle__slider"></span>
+      </label>
+    </div>
+    <p class="form-hint">
+      You will not receive game updates or notifications via SMS when disabled.
+      OTP login codes are always sent.
+    </p>
+
+    <button type="submit" class="btn btn--gold btn--full">Save Changes</button>
+  </form>
+</div>

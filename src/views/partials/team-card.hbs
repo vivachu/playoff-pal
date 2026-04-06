@@ -1,0 +1,23 @@
+<div class="team-card" data-team-id="{{id}}">
+  <div class="team-card__mascot">
+    <img src="{{mascot_icon_path}}" alt="{{mascot_name}}" width="64" height="64" />
+  </div>
+  <div class="team-card__info">
+    <h3 class="team-card__name">{{name}}</h3>
+    <p class="team-card__mascot-name">{{mascot_name}}</p>
+    <ul class="team-card__players">
+      {{#each players}}
+        <li class="team-card__player team-card__player--{{status}}">
+          {{display_name}}
+          {{#if is_captain}}<span class="badge badge--captain">C</span>{{/if}}
+          {{#if (eq status 'pending')}}<span class="badge badge--pending">Pending</span>{{/if}}
+        </li>
+      {{else}}
+        <li class="team-card__player team-card__player--empty">No players yet</li>
+      {{/each}}
+    </ul>
+    {{#if canSignup}}
+      <button class="btn btn--blue signup-btn" data-team-id="{{id}}">Join Team</button>
+    {{/if}}
+  </div>
+</div>

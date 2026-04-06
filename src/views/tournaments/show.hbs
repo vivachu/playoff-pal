@@ -1,0 +1,98 @@
+<div class="tournament-page">
+
+  <!-- Hero -->
+  <div class="tournament-hero">
+    <img src="{{tournament.theme_icon_path}}" alt="{{tournament.theme_name}}" class="tournament-hero__icon" />
+    <div class="tournament-hero__info">
+      <span class="badge badge--{{tournament.status}}">{{tournament.status}}</span>
+      <h1 class="tournament-hero__title">{{tournament.title}}</h1>
+      <p class="tournament-hero__desc">{{tournament.description}}</p>
+      {{#if tournament.location}}
+        <p class="tournament-hero__meta">📍 {{tournament.location}}</p>
+      {{/if}}
+      {{#if tournament.start_datetime}}
+        <p class="tournament-hero__meta">🗓 {{tournament.start_datetime}}</p>
+      {{/if}}
+      {{#if tournament.prize_name}}
+        <p class="tournament-hero__meta">🏆 {{tournament.prize_name}}{{#if tournament.prize_description}} — {{tournament.prize_description}}{{/if}}</p>
+      {{/if}}
+    </div>
+  </div>
+
+  <!-- Creator actions -->
+  {{#if isCreator}}
+    <div class="creator-actions">
+      {{#if (eq tournament.status "draft")}}
+        <button class="btn btn--gold" id="publishBtn" data-id="{{tournament.id}}">Publish Tournament</button>
+        <button class="btn btn--gray" id="shareBtn" data-url="{{shareUrl}}">Copy Share Link</button>
+      {{/if}}
+      {{#if (eq tournament.status "signup")}}
+        {{#if allTeamsReady}}
+          <button class="btn btn--green btn--lg" id="startBtn" data-id="{{tournament.id}}">🚀 Start Tournament</button>
+        {{else}}
+          <p class="info-note">Waiting for all teams to reach minimum players…</p>
+        {{/if}}
+        <button class="btn btn--gray" id="shareBtn" data-url="{{shareUrl}}">Copy Share Link</button>
+      {{/if}}
+    </div>
+  {{/if}}
+
+  <!-- Game rules (collapsible) -->
+  {{#if tournament.game_rules}}
+    <details class="rules-section">
+      <summary class="rules-section__toggle">View Game Rules</summary>
+      <p class="rules-section__body">{{tournament.game_rules}}</p>
+    </details>
+  {{/if}}
+
+  <!-- Signup board — only in signup state -->
+  {{#if (eq tournament.status "signup")}}
+    <section class="signup-board">
+      <h2 class="section-title">Teams</h2>
+      <div class="team-grid">
+        {{#each teams}}
+          {{> team-card canSignup=../canSignup}}
+        {{/each}}
+      </div>
+    </section>
+  {{/if}}
+
+  <!-- Bracket — gameplay and ended -->
+  {{#if (eq tournament.status "gameplay")}}
+    {{> bracket-section bracketRounds=bracketRounds isCreator=isCreator canReport=true}}
+  {{/if}}
+  {{#if (eq tournament.status "ended")}}
+    <div class="winner-banner">
+      {{> mascot-anim variant="celebrating"}}
+      <h2 class="winner-banner__title">🥇 Champion</h2>
+      {{#each teams}}
+        {{#if (eq status "winner")}}
+          <div class="winner-team">
+            <img src="{{mascot_icon_path}}" alt="{{mascot_name}}" width="128" height="128" />
+            <h3 class="winner-team__name">{{name}}</h3>
+          </div>
+        {{/if}}
+      {{/each}}
+    </div>
+    {{> bracket-section bracketRounds=bracketRounds isCreator=false canReport=false}}
+  {{/if}}
+
+  <!-- Draft preview -->
+  {{#if (eq tournament.status "draft")}}
+    <div class="draft-preview">
+      <p class="info-note">👁 Preview mode — only you can see this. Publish to make it public.</p>
+      <div class="team-grid">
+        {{#each teams}}
+          {{> team-card}}
+        {{/each}}
+      </div>
+    </div>
+  {{/if}}
+
+</div>
+
+<script>
+  window.TOURNAMENT_ID = {{tournament.id}};
+  window.IS_CREATOR = {{#if isCreator}}true{{else}}false{{/if}};
+  window.SHARE_URL = '{{shareUrl}}';
+</script>

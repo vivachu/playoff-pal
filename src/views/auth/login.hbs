@@ -1,0 +1,27 @@
+<div class="auth-page">
+  {{> mascot-anim variant="welcome"}}
+
+  <div class="auth-card">
+    <img src="/images/logo/playoff-pal-logo.png" alt="Playoff Pal" class="auth-logo" />
+    <h1 class="auth-title">Sign In</h1>
+    <p class="auth-sub">Enter your phone number to get started.</p>
+
+    {{#if error}}
+      <p class="alert alert--error">{{error}}</p>
+    {{/if}}
+
+    <form action="/auth/login" method="POST" class="auth-form" id="loginForm">
+      <label class="form-label" for="phone_number">Phone Number</label>
+      <input
+        class="form-input"
+        type="tel"
+        id="phone_number"
+        name="phone_number"
+        placeholder="+1 (555) 000-0000"
+        autocomplete="tel"
+        required
+      />
+      <button type="submit" class="btn btn--gold btn--full">Continue</button>
+    </form>
+  </div>
+</div>

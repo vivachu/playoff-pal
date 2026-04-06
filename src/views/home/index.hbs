@@ -1,0 +1,48 @@
+<div class="home-page">
+  <div class="home-hero">
+    {{> mascot-anim variant="idle"}}
+    <h1 class="home-hero__title">Playoff Pal</h1>
+    <p class="home-hero__sub">Create epic tournaments with your friends.</p>
+    {{#if user}}
+      <a href="/tournaments/create" class="btn btn--gold btn--lg">+ Create Tournament</a>
+    {{else}}
+      <a href="/auth/login" class="btn btn--gold btn--lg">Get Started</a>
+    {{/if}}
+  </div>
+
+  {{#if myTournaments.length}}
+    <section class="home-section">
+      <h2 class="home-section__title">My Tournaments</h2>
+      <div class="tournament-list">
+        {{#each myTournaments}}
+          <a href="/t/{{share_code}}" class="tournament-card tournament-card--{{status}}">
+            <img src="{{theme_icon_path}}" alt="{{theme_name}}" class="tournament-card__icon" />
+            <div class="tournament-card__info">
+              <h3 class="tournament-card__name">{{title}}</h3>
+              <span class="badge badge--{{status}}">{{status}}</span>
+            </div>
+          </a>
+        {{/each}}
+      </div>
+    </section>
+  {{/if}}
+
+  <section class="home-section">
+    <h2 class="home-section__title">Tournaments</h2>
+    {{#if publicTournaments.length}}
+      <div class="tournament-list">
+        {{#each publicTournaments}}
+          <a href="/t/{{share_code}}" class="tournament-card tournament-card--{{status}}">
+            <img src="{{theme_icon_path}}" alt="{{theme_name}}" class="tournament-card__icon" />
+            <div class="tournament-card__info">
+              <h3 class="tournament-card__name">{{title}}</h3>
+              <span class="badge badge--{{status}}">{{status}}</span>
+            </div>
+          </a>
+        {{/each}}
+      </div>
+    {{else}}
+      <p class="empty-state">No tournaments yet. Be the first to create one!</p>
+    {{/if}}
+  </section>
+</div>

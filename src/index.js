@@ -14,6 +14,15 @@ import MySQLStoreFactory from 'express-mysql-session';
 
 import { errorHandler } from './middleware/errorHandler.js';
 
+import authRouter        from './routes/auth.js';
+import accountRouter     from './routes/account.js';
+import tournamentsRouter from './routes/tournaments.js';
+import teamsRouter       from './routes/teams.js';
+import playersRouter     from './routes/players.js';
+import matchesRouter     from './routes/matches.js';
+import aiRouter          from './routes/ai.js';
+import webhooksRouter    from './routes/webhooks.js';
+
 const MySQLStore = MySQLStoreFactory(session);
 const app = express();
 
@@ -23,6 +32,11 @@ app.engine('hbs', engine({
   defaultLayout: 'main',
   layoutsDir: join(__dirname, 'views/layouts'),
   partialsDir: join(__dirname, 'views/partials'),
+  helpers: {
+    eq: (a, b) => a === b,
+    json: (val) => JSON.stringify(val),
+    formatDate: (d) => d ? new Date(d).toLocaleString() : '',
+  },
 }));
 app.set('view engine', 'hbs');
 app.set('views', join(__dirname, 'views'));
@@ -56,29 +70,14 @@ app.use(session({
 }));
 
 // ── Routes ────────────────────────────────────────────────────────────────────
-// TODO: mount routes as each is implemented
-// import authRouter from './routes/auth.js';        // /auth
-// import accountRouter from './routes/account.js';  // /account
-// import tournamentsRouter from './routes/tournaments.js'; // /tournaments
-// import teamsRouter from './routes/teams.js';       // /teams
-// import playersRouter from './routes/players.js';   // /players
-// import matchesRouter from './routes/matches.js';   // /matches
-// import aiRouter from './routes/ai.js';             // /ai
-// import webhooksRouter from './routes/webhooks.js'; // /webhooks
-
-// app.use('/auth', authRouter);
-// app.use('/account', accountRouter);
-// app.use('/tournaments', tournamentsRouter);
-// app.use('/teams', teamsRouter);
-// app.use('/players', playersRouter);
-// app.use('/matches', matchesRouter);
-// app.use('/ai', aiRouter);
-// app.use('/webhooks', webhooksRouter);
-
-// Temporary 501 catch-all until routes are built
-app.use((req, res, next) => {
-  res.status(501).json({ success: false, error: 'Not implemented yet.', code: 'NOT_IMPLEMENTED' });
-});
+app.use('/auth',      authRouter);
+app.use('/account',   accountRouter);
+app.use('/webhooks',  webhooksRouter);
+app.use('/matches',   matchesRouter);
+app.use('/ai',        aiRouter);
+app.use('/',          tournamentsRouter);   // handles GET /, GET /t/:shareCode, GET /tournaments/create
+app.use('/',          teamsRouter);         // handles POST /tournaments/:id/teams
+app.use('/',          playersRouter);       // handles POST /teams/:id/players, PATCH /players/:id/status
 
 // ── Error handler (must be last) ──────────────────────────────────────────────
 app.use(errorHandler);

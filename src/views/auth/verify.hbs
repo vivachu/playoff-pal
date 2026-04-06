@@ -1,0 +1,38 @@
+<div class="auth-page">
+  {{> mascot-anim variant="welcome"}}
+
+  <div class="auth-card">
+    <img src="/images/logo/playoff-pal-logo.png" alt="Playoff Pal" class="auth-logo" />
+    <h1 class="auth-title">Enter Your Code</h1>
+    <p class="auth-sub">We texted you a 6-digit code. Enter it below.</p>
+
+    {{#if error}}
+      <p class="alert alert--error">{{error}}</p>
+    {{/if}}
+
+    <form action="/auth/verify" method="POST" class="auth-form">
+      <label class="form-label" for="code">Verification Code</label>
+      <input
+        class="form-input form-input--otp"
+        type="text"
+        id="code"
+        name="code"
+        inputmode="numeric"
+        pattern="[0-9]{6}"
+        maxlength="6"
+        placeholder="000000"
+        autocomplete="one-time-code"
+        required
+      />
+      <button type="submit" class="btn btn--gold btn--full">Verify</button>
+    </form>
+
+    <p class="auth-consent">
+      By verifying your number, you agree to receive automated updates, notifications,
+      and promotional messages from Playoff Pal. Message and data rates may apply.
+      Reply STOP to opt-out at any time.
+    </p>
+
+    <a href="/auth/login" class="auth-link">← Use a different number</a>
+  </div>
+</div>
