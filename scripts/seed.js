@@ -7,7 +7,8 @@ import dotenv from 'dotenv';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
-dotenv.config({ path: join(__dirname, `../.env.${process.env.NODE_ENV || 'local'}`) });
+const envName = process.env.NODE_ENV === 'development' ? 'local' : (process.env.NODE_ENV || 'local');
+dotenv.config({ path: join(__dirname, `../.env.${envName}`) });
 
 const SEEDS_DIR = join(__dirname, '../seeds');
 
